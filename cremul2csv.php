@@ -49,6 +49,19 @@ if (count($line)) {
 }
 $header = array_shift($lines);
 
-$data = array("header" => $header, "lines" => $lines);
+$out = fopen('php://output', 'w');
+foreach($lines as $line) {
+  $txt = $line["freeText"][0]["textLiteral"];
 
-echo(json_encode($data, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
+  if (is_object($txt)) {
+    $txt = $txt->freeText;
+  }
+
+  fputcsv($out, array(
+    $line["monetaryAmount"][0]["monetaryAmount"]->monetaryAmount,
+    $line["monetaryAmount"][0]["monetaryAmount"]->currencyCoded,
+    $line["nameAndAddress"]["PL"]["partyName"],
+    $txt
+  ));
+}
+fclose($out);
