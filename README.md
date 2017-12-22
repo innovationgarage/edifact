@@ -6,4 +6,9 @@
 
 # Usage
 
-    php cremulreader.php CREMULFILE > JSONFILE
+    php cremulreader.php CREMULFILE > JSONFILE.JSON
+
+
+# Uses the php-edifact library
+
+https://github.com/php-edifact/edifact licensed under the GNU Lesser General Public License v3.0
